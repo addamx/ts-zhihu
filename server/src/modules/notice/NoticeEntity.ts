@@ -1,25 +1,20 @@
-import { prop, arrayProp, Ref, Typegoose } from "typegoose";
+import { prop, Ref, Typegoose } from "typegoose";
 import { ObjectType, Field, ID } from "type-graphql";
 import { ObjectId } from "mongodb";
 import { User } from "../user/UserEntity";
-import { Answer } from "../answer/AnswerEntity";
 
 @ObjectType()
-export class Question extends Typegoose {
+export class Notice extends Typegoose {
   @Field(type => ID)
   readonly _id: ObjectId;
 
   @prop({ required: true })
   @Field()
-  title: string;
+  value: string;
 
-  @prop()
+  @prop({ default: false })
   @Field()
-  desc?: string;
-
-  @Field(type => [Answer])
-  @arrayProp({ itemsRef: Answer, default: [] })
-  answers: Ref<Answer>[];
+  readed: boolean;
 
   @prop({ ref: User, required: true })
   @Field(type => User)
@@ -28,12 +23,8 @@ export class Question extends Typegoose {
   @prop()
   @Field(() => Date)
   createdAt: Date;
-
-  @prop()
-  @Field(() => Date)
-  updatedAt: Date;
 }
 
-export default new Question().getModelForClass(Question, {
+export default new Notice().getModelForClass(Notice, {
   schemaOptions: { timestamps: true }
 });

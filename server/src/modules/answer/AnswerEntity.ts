@@ -1,25 +1,20 @@
-import { prop, Typegoose } from "typegoose";
+import { prop, Ref, Typegoose } from "typegoose";
 import { ObjectType, Field, ID } from "type-graphql";
 import { ObjectId } from "mongodb";
+import { User } from "../user/UserEntity";
 
 @ObjectType()
-export class User extends Typegoose {
+export class Answer extends Typegoose {
   @Field(type => ID)
   readonly _id: ObjectId;
 
   @prop({ required: true })
   @Field()
-  name: string;
+  value: string;
 
-  @prop({ unique: true })
-  @Field()
-  email: string;
-
-  @prop({ required: true })
-  password: string;
-
-  // @prop({ default: false })
-  // confirmed: boolean;
+  @prop({ ref: User, required: true })
+  @Field(type => User)
+  author: Ref<User>;
 
   @prop()
   @Field(() => Date)
@@ -28,11 +23,8 @@ export class User extends Typegoose {
   @prop()
   @Field(() => Date)
   updatedAt: Date;
-
-  @Field()
-  token: string;
 }
 
-export default new User().getModelForClass(User, {
+export default new Answer().getModelForClass(Answer, {
   schemaOptions: { timestamps: true }
 });

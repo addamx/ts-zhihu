@@ -1,23 +1,17 @@
-import {
-  registerDecorator,
-  ValidationOptions,
-  ValidatorConstraint,
-  ValidatorConstraintInterface
-} from "class-validator";
-
+import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
 import { UserService } from "../UserService";
 
 @ValidatorConstraint({ async: true })
 export class IsEmailAlreadyExistConstraint implements ValidatorConstraintInterface {
-
   private readonly service: UserService;
 
   constructor() {
     this.service = new UserService();
   }
 
-  validate(email: string) {
-    return !this.service.findOneByEmail(email);
+  async validate(email: string) {
+    const result = await this.service.findOneByEmail(email);
+    return !result;
   }
 }
 

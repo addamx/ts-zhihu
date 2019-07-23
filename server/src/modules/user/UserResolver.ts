@@ -62,7 +62,8 @@ export default class UserResolver {
   @Authorized()
   async me(@Ctx() ctx: any) {
     if (ctx.req.user && ctx.req.user._id) {
-      return await this.service.findOneById(ctx.req.user._id);
+      const result = this.service.findOneById(ctx.req.user._id);
+      return result;
     }
   }
 }
