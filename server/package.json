@@ -21,7 +21,7 @@
         "graphql": "^14.3.1",
         "graphql-query-complexity": "^0.3.0",
         "graphql-toolkit": "^0.2.14",
-        "jsonwebtoken": "^8.5.1",
+        "jsonwebtoken": "^9.0.0",
         "mongoose": "^5.6.0",
         "reflect-metadata": "^0.1.13",
         "type-graphql": "^0.17.4",
